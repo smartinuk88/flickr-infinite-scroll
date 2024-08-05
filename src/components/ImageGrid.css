@@ -1,0 +1,9 @@
+.image-grid {
+  display: grid;
+  max-width: 72rem;
+  margin: 0 auto;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}

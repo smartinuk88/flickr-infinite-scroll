@@ -36,6 +36,8 @@ export interface Owner {
   profileurl: { _content: string };
 }
 
-export interface PhotoWithOwner extends Photo {
+export interface PhotoWithOwnerandSizes extends Photo {
   ownerName: string;
+  smallImgUrl: string;
+  originalImgUrl: string;
 }

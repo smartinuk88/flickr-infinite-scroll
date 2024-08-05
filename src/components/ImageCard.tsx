@@ -7,11 +7,10 @@ function ImageCard({ image }: { image: PhotoWithOwnerandSizes }) {
   return (
     <div className="image-card">
       <img
+        className="image-card__image"
         src={image.smallImgUrl ? image.smallImgUrl : fallbackImageUrl}
         alt={image.title}
       />
-      <p>{image.title}</p>
-      <p>{image.ownerName}</p>
     </div>
   );
 }

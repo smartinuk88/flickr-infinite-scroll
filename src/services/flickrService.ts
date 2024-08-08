@@ -69,6 +69,7 @@ export const fetchImages = async (
               ownerName: ownerInfo?.username._content,
               smallImgUrl: smallPhoto?.source,
               originalImgUrl: originalPhoto?.source,
+              isFavourite: false,
             };
           } catch (error) {
             console.error(
@@ -80,6 +81,7 @@ export const fetchImages = async (
               ownerName: "Unknown",
               smallImgUrl: null,
               originalImgUrl: null,
+              isFavourite: false,
             };
           }
         })

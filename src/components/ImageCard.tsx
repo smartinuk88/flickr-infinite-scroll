@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo } from "react";
 import { PhotoWithOwnerandSizes } from "../typings/flickr";
 import "./ImageCard.css";
 
@@ -40,4 +40,4 @@ function ImageCard({
     </div>
   );
 }
-export default ImageCard;
+export default memo(ImageCard);

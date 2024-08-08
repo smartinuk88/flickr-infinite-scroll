@@ -20,10 +20,38 @@ function ImageGrid() {
     });
   }, [page]);
 
+  const toggleFavourite = (photoId: string) => {
+    let favourites = JSON.parse(localStorage.getItem("favourites") || "[]");
+
+    if (favourites.includes(photoId)) {
+      // Remove from favourites
+      favourites = favourites.filter((id: string) => id !== photoId);
+    } else {
+      // Add to favourites
+      favourites.push(photoId);
+    }
+
+    // Update local storage
+    localStorage.setItem("favourites", JSON.stringify(favourites));
+
+    // Update the images state
+    setImages((prevImages) =>
+      prevImages.map((image) =>
+        image.id === photoId
+          ? { ...image, isFavourite: !image.isFavourite }
+          : image
+      )
+    );
+  };
+
   return (
     <div className="image-grid">
       {images.map((image) => (
-        <ImageCard key={image.id} image={image} />
+        <ImageCard
+          key={image.id}
+          image={image}
+          toggleFavourite={() => toggleFavourite(image.id)}
+        />
       ))}
     </div>
   );

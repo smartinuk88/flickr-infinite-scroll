@@ -52,11 +52,15 @@ export const fetchImages = async (
 
     const data = await response.json();
 
+    // Get favourites from local storage
+    const favourites = JSON.parse(localStorage.getItem("favourites") || "[]");
+
     const photosWithOwnerandSizeData: PhotoWithOwnerandSizes[] =
       await Promise.all(
         data.photos.photo.map(async (photo: any) => {
           try {
             const ownerInfo = await fetchOwnerInfo(photo.owner);
+            const isFavourite = favourites.includes(photo.id);
             const photoSizes = await fetchImageSizes(photo.id);
             const smallPhoto = photoSizes.find(
               (size: any) => size.label === "Small"
@@ -69,7 +73,7 @@ export const fetchImages = async (
               ownerName: ownerInfo?.username._content,
               smallImgUrl: smallPhoto?.source,
               originalImgUrl: originalPhoto?.source,
-              isFavourite: false,
+              isFavourite,
             };
           } catch (error) {
             console.error(

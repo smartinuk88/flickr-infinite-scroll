@@ -1,7 +1,14 @@
+import { useState } from "react";
 import { PhotoWithOwnerandSizes } from "../typings/flickr";
 import "./ImageCard.css";
 
-function ImageCard({ image }: { image: PhotoWithOwnerandSizes }) {
+function ImageCard({
+  image,
+  toggleFavourite,
+}: {
+  image: PhotoWithOwnerandSizes;
+  toggleFavourite: () => void;
+}) {
   const fallbackImageUrl = `https://farm${image.farm}.staticflickr.com/${image.server}/${image.id}_${image.secret}.jpg`;
 
   return (
@@ -19,7 +26,16 @@ function ImageCard({ image }: { image: PhotoWithOwnerandSizes }) {
           <p>{image.ownerName}</p>
         </div>
 
-        <button>Favourite</button>
+        <button
+          onClick={toggleFavourite}
+          className={`image-card__button ${
+            image.isFavourite
+              ? "image-card__button--favourite"
+              : "image-card__button--notFavourite"
+          }`}
+        >
+          {image.isFavourite ? "Unfavourite" : "Favourite"}
+        </button>
       </div>
     </div>
   );

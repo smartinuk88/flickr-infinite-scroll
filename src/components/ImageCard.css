@@ -52,7 +52,7 @@
 }
 
 .image-card__overlay hr {
-  width: 100%;
+  width: 3rem;
   border-color: #fff;
   background-color: #fff;
 }
@@ -71,16 +71,24 @@
   flex-grow: 1;
 }
 
-.image-card__overlay button {
+.image-card__button {
   padding: 0.5rem 1.6rem;
   border-radius: 9999px;
-  color: #fff;
-  background-color: transparent;
   border: 1px solid #fff;
   font-size: 1rem;
   letter-spacing: -1px;
   cursor: pointer;
   margin-top: auto;
+}
+
+.image-card__button--favourite {
+  background-color: #fff;
+  color: #000;
+}
+
+.image-card__button--notFavourite {
+  color: #fff;
+  background-color: transparent;
 }
 
 @media only screen and (max-width: 1024px) {

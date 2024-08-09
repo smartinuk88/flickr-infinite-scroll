@@ -8,6 +8,13 @@
   justify-content: space-around;
 }
 
+.image-grid__loading-indicator {
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding: 0.5rem;
+  text-align: center;
+}
+
 @media only screen and (max-width: 768px) {
   .image-grid {
     /* grid-template-columns: repeat(2, minmax(200px, 1fr)); */

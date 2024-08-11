@@ -1,7 +1,7 @@
 import { Owner, PhotoWithOwnerandSizes } from "../typings/flickr";
 
 const apiKey = process.env.REACT_APP_FLICKR_API_KEY;
-const perPage = 24;
+const perPage = 18;
 
 const fetchOwnerInfo = async (userId: string): Promise<Owner | null> => {
   try {

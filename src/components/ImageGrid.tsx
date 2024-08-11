@@ -71,7 +71,7 @@ function ImageGrid() {
   };
 
   const handleScroll = () => {
-    const scrollThreshold = 750; // Increase this value for earlier loading
+    const scrollThreshold = 900; // Increase this value for earlier loading
 
     if (
       window.innerHeight + window.scrollY >=

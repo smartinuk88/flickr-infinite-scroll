@@ -4,12 +4,34 @@ import { fetchImages } from "../services/flickrService";
 import ImageCard from "./ImageCard";
 import { PhotoWithOwnerandSizes } from "../typings/flickr";
 import Search from "./Search";
+import FullImageModal from "./FullImageModal";
 
 function ImageGrid() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [tags, setTags] = useState<string>("cats");
   const [page, setPage] = useState<number>(1);
   const [images, setImages] = useState<PhotoWithOwnerandSizes[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] =
+    useState<PhotoWithOwnerandSizes | null>(null);
+
+  const updateImage = (updatedImage: PhotoWithOwnerandSizes) => {
+    setImages((prevImages) =>
+      prevImages.map((image) =>
+        image.id === updatedImage.id ? updatedImage : image
+      )
+    );
+  };
+
+  const openModal = (image: PhotoWithOwnerandSizes) => {
+    setSelectedImage(image);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedImage(null);
+  };
 
   // Use a Set to track the IDs of images already added
   const imageIds = useRef(new Set<string>());
@@ -99,8 +121,14 @@ function ImageGrid() {
               key={image.id}
               image={image}
               toggleFavourite={() => toggleFavourite(image.id)}
+              updateImage={updateImage}
+              onShowModal={openModal}
             />
           ))}
+
+          {isModalOpen && (
+            <FullImageModal image={selectedImage} onClose={closeModal} />
+          )}
         </div>
 
         {loading && (

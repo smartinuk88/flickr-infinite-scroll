@@ -23,6 +23,13 @@
   border-radius: 4px 0 0 4px;
   border: 1px solid #ccc;
   font-size: 1rem;
+  outline: none;
+}
+
+.search__input:focus {
+  border-color: #000;
+  outline: 1px solid #000;
+  /* border-radius: 4px 0 0 4px; */
 }
 
 .search__button {

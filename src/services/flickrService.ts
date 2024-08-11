@@ -21,7 +21,7 @@ const fetchOwnerInfo = async (userId: string): Promise<Owner | null> => {
   }
 };
 
-const fetchImageSizes = async (photoId: string) => {
+export const fetchOriginalSize = async (photoId: string) => {
   try {
     const response = await fetch(
       `https://api.flickr.com/services/rest?method=flickr.photos.getSizes&api_key=${apiKey}&photo_id=${photoId}&format=json&nojsoncallback=1`
@@ -32,7 +32,12 @@ const fetchImageSizes = async (photoId: string) => {
     }
 
     const data = await response.json();
-    return data.sizes.size;
+
+    const originalPhoto = data.sizes.size.find(
+      (size: any) => size.label === "Original"
+    );
+
+    return originalPhoto;
   } catch (error) {
     console.error("Error fetching photo sizes:", error);
   }
@@ -62,18 +67,11 @@ export const fetchImages = async (
           try {
             const ownerInfo = await fetchOwnerInfo(photo.owner);
             const isFavourite = favourites.includes(photo.id);
-            const photoSizes = await fetchImageSizes(photo.id);
-            const smallPhoto = photoSizes.find(
-              (size: any) => size.label === "Small"
-            );
-            const originalPhoto = photoSizes.find(
-              (size: any) => size.label === "Original"
-            );
+
             return {
               ...photo,
               ownerName: ownerInfo?.username._content,
               smallImgUrl: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`,
-              originalImgUrl: "",
               isFavourite,
             };
           } catch (error) {

@@ -1,18 +1,40 @@
-import { memo } from "react";
+import { memo, MouseEventHandler } from "react";
 import { PhotoWithOwnerandSizes } from "../typings/flickr";
 import "./ImageCard.css";
+import { fetchOriginalSize } from "../services/flickrService";
+
+interface Props {
+  image: PhotoWithOwnerandSizes;
+  toggleFavourite: () => void;
+  updateImage: (updatedImage: PhotoWithOwnerandSizes) => void;
+  onShowModal: (image: PhotoWithOwnerandSizes) => void;
+}
 
 function ImageCard({
   image,
   toggleFavourite,
-}: {
-  image: PhotoWithOwnerandSizes;
-  toggleFavourite: () => void;
-}) {
+  updateImage,
+  onShowModal,
+}: Props) {
   const fallbackImageUrl = `https://farm${image.farm}.staticflickr.com/${image.server}/${image.id}_${image.secret}.jpg`;
 
+  const handleImageClick = async () => {
+    let updatedImage = image;
+    if (!image.originalImgUrl) {
+      const originalPhoto = await fetchOriginalSize(image.id);
+      if (originalPhoto) {
+        updatedImage = {
+          ...image,
+          originalImgUrl: originalPhoto.source,
+        };
+        updateImage(updatedImage); // Update the image with the original URL
+      }
+    }
+    onShowModal(updatedImage); // Show modal with the possibly updated image
+  };
+
   return (
-    <div className="image-card">
+    <div className="image-card" onClick={handleImageClick}>
       <img
         className="image-card__image"
         src={image.smallImgUrl ? image.smallImgUrl : fallbackImageUrl}

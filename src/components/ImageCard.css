@@ -6,9 +6,7 @@
   background: #f0f0f0;
   border-radius: 4px;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-}
-
-.image-card:hover {
+  cursor: pointer;
 }
 
 .image-card__image {
@@ -80,6 +78,11 @@
   letter-spacing: -1px;
   cursor: pointer;
   margin-top: auto;
+  transition: all 0.3s;
+}
+
+.image-card__button:hover {
+  background-color: #ccc;
 }
 
 .image-card__button--favourite {
@@ -87,9 +90,17 @@
   color: #000;
 }
 
+.image-card__button:hover {
+  background-color: #ccc;
+}
+
 .image-card__button--notFavourite {
   color: #fff;
   background-color: transparent;
+}
+
+.image-card__button--notFavourite:hover {
+  color: #000;
 }
 
 @media only screen and (max-width: 1024px) {

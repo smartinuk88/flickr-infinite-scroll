@@ -39,6 +39,6 @@ export interface Owner {
 export interface PhotoWithOwnerandSizes extends Photo {
   ownerName: string;
   smallImgUrl: string;
-  originalImgUrl: string;
+  originalImgUrl?: string;
   isFavourite: boolean;
 }

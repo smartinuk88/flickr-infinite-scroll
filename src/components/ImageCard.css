@@ -103,21 +103,9 @@
   color: #000;
 }
 
-@media only screen and (max-width: 1024px) {
-  .image-card {
-    /* width: 15.625rem;
-    height: 10.417rem; */
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .image-card {
-  }
-}
-
 @media only screen and (max-width: 490px) {
   .image-card {
-    /* width: 18.75rem;
-    height: 12.5rem; */
+    width: 22.5rem;
+    height: 15rem;
   }
 }

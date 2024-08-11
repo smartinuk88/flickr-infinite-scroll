@@ -1,9 +1,9 @@
-import { Owner, PhotoWithOwnerandSizes } from "../typings/flickr";
+import { PhotoWithOwnerandSizes } from "../typings/flickr";
 
 const apiKey = process.env.REACT_APP_FLICKR_API_KEY;
 const perPage = 18;
 
-const fetchOwnerInfo = async (userId: string): Promise<Owner | null> => {
+const fetchOwnerInfo = async (userId: string) => {
   try {
     const response = await fetch(
       `https://api.flickr.com/services/rest?method=flickr.people.getInfo&api_key=${apiKey}&user_id=${userId}&format=json&nojsoncallback=1`
@@ -75,10 +75,7 @@ export const fetchImages = async (
               isFavourite,
             };
           } catch (error) {
-            console.error(
-              "Error fetching owner and size info for photo:",
-              error
-            );
+            console.error("Error fetching owner info for photo:", error);
             return {
               ...photo,
               ownerName: "Unknown",

@@ -23,5 +23,6 @@
 
 @media only screen and (max-width: 490px) {
   .image-grid {
+    padding: 1.25rem 0.5rem;
   }
 }

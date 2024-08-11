@@ -16,8 +16,6 @@ function ImageCard({
   updateImage,
   onShowModal,
 }: Props) {
-  const fallbackImageUrl = `https://farm${image.farm}.staticflickr.com/${image.server}/${image.id}_${image.secret}.jpg`;
-
   const handleImageClick = async () => {
     let updatedImage = image;
     if (!image.originalImgUrl) {
@@ -42,7 +40,7 @@ function ImageCard({
     <div className="image-card" onClick={handleImageClick}>
       <img
         className="image-card__image"
-        src={image.smallImgUrl ? image.smallImgUrl : fallbackImageUrl}
+        src={image.smallImgUrl}
         alt={image.title}
       />
 

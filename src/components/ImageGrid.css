@@ -17,13 +17,11 @@
 
 @media only screen and (max-width: 768px) {
   .image-grid {
-    /* grid-template-columns: repeat(2, minmax(200px, 1fr)); */
     padding: 1.25rem 0.75rem;
   }
 }
 
 @media only screen and (max-width: 490px) {
   .image-grid {
-    /* grid-template-columns: repeat(1, minmax(200px, 1fr)); */
   }
 }

@@ -39,11 +39,12 @@ const fetchImageSizes = async (photoId: string) => {
 };
 
 export const fetchImages = async (
-  page: number
+  page: number,
+  tags: string = "cats"
 ): Promise<PhotoWithOwnerandSizes[]> => {
   try {
     const response = await fetch(
-      `https://api.flickr.com/services/rest?method=flickr.photos.search&tags=cats&api_key=${apiKey}&format=json&nojsoncallback=1&per_page=${perPage}&page=${page}`
+      `https://api.flickr.com/services/rest?method=flickr.photos.search&tags=${tags}&api_key=${apiKey}&format=json&nojsoncallback=1&per_page=${perPage}&page=${page}`
     );
 
     if (!response.ok) {
@@ -71,8 +72,8 @@ export const fetchImages = async (
             return {
               ...photo,
               ownerName: ownerInfo?.username._content,
-              smallImgUrl: smallPhoto?.source,
-              originalImgUrl: originalPhoto?.source,
+              smallImgUrl: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`,
+              originalImgUrl: "",
               isFavourite,
             };
           } catch (error) {

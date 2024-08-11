@@ -1,13 +1,15 @@
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./ImageGrid.css";
 import { fetchImages } from "../services/flickrService";
-import { PhotoWithOwnerandSizes } from "../typings/flickr";
 import ImageCard from "./ImageCard";
+import { PhotoWithOwnerandSizes } from "../typings/flickr";
+import Search from "./Search";
 
 function ImageGrid() {
-  const [images, setImages] = useState<PhotoWithOwnerandSizes[]>([]);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [tags, setTags] = useState<string>("cats");
+  const [page, setPage] = useState<number>(1);
+  const [images, setImages] = useState<PhotoWithOwnerandSizes[]>([]);
 
   // Use a Set to track the IDs of images already added
   const imageIds = useRef(new Set<string>());
@@ -17,7 +19,7 @@ function ImageGrid() {
 
     setLoading(true);
     try {
-      const newImages = await fetchImages(page);
+      const newImages = await fetchImages(page, tags);
 
       // Filter out duplicate images based on their ID
       const newUniqueImages = newImages.filter((image) => {
@@ -38,7 +40,13 @@ function ImageGrid() {
 
   useEffect(() => {
     loadImages();
-  }, [page]);
+  }, [page, tags]);
+
+  const handleSearch = (newTags: string) => {
+    setTags(newTags);
+    setPage(1);
+    setImages([]);
+  };
 
   const handleScroll = () => {
     const scrollThreshold = 750; // Increase this value for earlier loading
@@ -83,21 +91,24 @@ function ImageGrid() {
 
   return (
     <>
-      <div className="image-grid">
-        {images.map((image) => (
-          <ImageCard
-            key={image.id}
-            image={image}
-            toggleFavourite={() => toggleFavourite(image.id)}
-          />
-        ))}
-      </div>
-
-      {loading && (
-        <div className="image-grid__loading-indicator">
-          <p>Loading images...</p>
+      <Search onSearch={handleSearch} />
+      <div>
+        <div className="image-grid">
+          {images.map((image) => (
+            <ImageCard
+              key={image.id}
+              image={image}
+              toggleFavourite={() => toggleFavourite(image.id)}
+            />
+          ))}
         </div>
-      )}
+
+        {loading && (
+          <div className="image-grid__loading-indicator">
+            <p>Loading images...</p>
+          </div>
+        )}
+      </div>
     </>
   );
 }

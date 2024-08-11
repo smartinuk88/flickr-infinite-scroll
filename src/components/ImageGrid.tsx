@@ -120,7 +120,7 @@ function ImageGrid() {
             <ImageCard
               key={image.id}
               image={image}
-              toggleFavourite={() => toggleFavourite(image.id)}
+              onToggleFavourite={toggleFavourite}
               updateImage={updateImage}
               onShowModal={openModal}
             />

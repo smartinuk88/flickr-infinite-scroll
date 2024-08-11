@@ -1,18 +1,18 @@
-import { memo, MouseEventHandler } from "react";
+import { memo, MouseEvent, MouseEventHandler } from "react";
 import { PhotoWithOwnerandSizes } from "../typings/flickr";
 import "./ImageCard.css";
 import { fetchOriginalSize } from "../services/flickrService";
 
 interface Props {
   image: PhotoWithOwnerandSizes;
-  toggleFavourite: () => void;
+  onToggleFavourite: (id: string) => void;
   updateImage: (updatedImage: PhotoWithOwnerandSizes) => void;
   onShowModal: (image: PhotoWithOwnerandSizes) => void;
 }
 
 function ImageCard({
   image,
-  toggleFavourite,
+  onToggleFavourite,
   updateImage,
   onShowModal,
 }: Props) {
@@ -27,10 +27,15 @@ function ImageCard({
           ...image,
           originalImgUrl: originalPhoto.source,
         };
-        updateImage(updatedImage); // Update the image with the original URL
+        updateImage(updatedImage); // Update the image with the original (full size) URL
       }
     }
-    onShowModal(updatedImage); // Show modal with the possibly updated image
+    onShowModal(updatedImage);
+  };
+
+  const handleToggleFavouriteClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    onToggleFavourite(image.id);
   };
 
   return (
@@ -49,7 +54,7 @@ function ImageCard({
         </div>
 
         <button
-          onClick={toggleFavourite}
+          onClick={handleToggleFavouriteClick}
           className={`image-card__button ${
             image.isFavourite
               ? "image-card__button--favourite"

@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect } from "react";
+import { MouseEvent } from "react";
 import { PhotoWithOwnerandSizes } from "../typings/flickr";
 import "./FullImageModal.css";
 
@@ -8,10 +8,6 @@ interface Props {
 }
 
 function FullImageModal({ image, onClose }: Props) {
-  useEffect(() => {
-    console.log(image);
-  }, []);
-
   const handleClickOutside = (e: MouseEvent): void => {
     const target = e.target as HTMLElement;
     if (target.classList.contains("modal-overlay")) {
